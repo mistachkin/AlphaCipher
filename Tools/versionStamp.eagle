@@ -1,0 +1,146 @@
+###############################################################################
+#
+# versionStamp.eagle --
+#
+# Extensible Adaptable Generalized Logic Engine (Eagle)
+# Version Stamp Tool
+#
+# Copyright (c) 2007-2026 by Joe Mistachkin.  All rights reserved.
+#
+# See the file "license.terms" for information on usage and redistribution of
+# this file, and for a DISCLAIMER OF ALL WARRANTIES.
+#
+# RCS: @(#) $Id: $
+#
+###############################################################################
+
+package require Eagle
+
+proc usage { error } {
+  if {[string length $error] > 0} then {puts stdout $error}
+
+  puts stdout "usage: [file tail [info nameofexecutable]]\
+[file tail [info script]]\
+<majorMinorVersion> <fileName1> ... \[fileNameN\]"
+
+  #
+  # NOTE: Indicate to the caller, if any, that we have failed.
+  #
+  exit 1
+}
+
+if {[llength $argv] >= 2} then {
+  set majorMinor [lindex $argv 0]
+
+  if {[regexp -- {^\d{1,5}\.\d{1,5}$} $majorMinor]} then {
+    #
+    # NOTE: Grab the build number we are going to use (based
+    #       on the current date and time).
+    #
+    set build [clock buildnumber]
+
+    #
+    # NOTE: All the remaining arguments are the file names to
+    #       process; therefore, simply grab that range from
+    #       the argument list.
+    #
+    set fileNames [lrange $argv 1 end]
+
+    #
+    # NOTE: Process each file in the list, replacing all the
+    #       old build numbers in each file as we go with the
+    #       current build number.
+    #
+    foreach fileName $fileNames {
+      #
+      # NOTE: Make sure the file name provided is not obviously
+      #       invalid; otherwise, skip it.
+      #
+      if {[string length $fileName] > 0} then {
+        #
+        # NOTE: Read all the data out of the file.
+        #
+        set data [readFile $fileName]
+
+        #
+        # NOTE: Normalize to Unix line-endings.
+        #
+        set data [string map [list \r\n \n] $data]; # Unix.
+
+        #
+        # NOTE: Match against this pattern in the file (this
+        #       pattern is fairly strict to prevent false-
+        #       positives).
+        #
+        set pattern [string map [list . \\.] \
+            [appendArgs $majorMinor .\\d+.\\d+]]
+
+        #
+        # NOTE: Construct the replacement string using the
+        #       major and minor versions specified by the
+        #       caller and the current build number we
+        #       queried for above.
+        #
+        if {[info exists env(PATCHLEVEL)]} then {
+          set subSpec $env(PATCHLEVEL)
+        } else {
+          set subSpec [appendArgs $majorMinor . [join $build .]]
+        }
+
+        #
+        # NOTE: Perform the replacement(s) in the original data
+        #       and perform the same replacement(s) in the data
+        #       with commas used in place of periods.  Also,
+        #       make sure that we changed something prior to
+        #       writing the new file; otherwise, there is no
+        #       point in doing so.
+        #
+        set count 0
+
+        incr count [regsub -all -nocase -- $pattern $data \
+            $subSpec data]
+
+        incr count [regsub -all -nocase -- [string map \
+            [list \\. ,] $pattern] $data [string map \
+            [list . ,] $subSpec] data]
+
+        if {$count > 0} then {
+          #
+          # NOTE: Remove the read-only protection from the file,
+          #       preserving the value in case we need to restore
+          #       it below.
+          #
+          set readOnly [file attributes $fileName -readonly]
+
+          if {$readOnly} then {
+            file attributes $fileName -readonly false
+          }
+
+          #
+          # NOTE: Re-write the original file with the modified data.
+          #
+          writeFile $fileName [string map [list \n \r\n] $data]; # DOS.
+
+          #
+          # NOTE: Restore the read-only protection if necessary.
+          #
+          if {$readOnly} then {
+            file attributes $fileName -readonly true
+          }
+        } else {
+          #
+          # NOTE: We could not replace the string.  This is considered
+          #       an overall failure.
+          #
+          usage [appendArgs "pattern \"" $pattern "\" not found in \"" \
+              $fileName \"]
+        }
+      }
+    }
+  } else {
+    usage "invalid version, must be in the format \"x.y\", where \"x\" is\
+the major version and \"y\" is the minor version"
+  }
+} else {
+  usage ""
+}

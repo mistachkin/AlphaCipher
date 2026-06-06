@@ -1,0 +1,94 @@
+###############################################################################
+#
+# makeDemo.eagle --
+#
+# Extensible Adaptable Generalized Logic Engine (Eagle)
+# AlphaCipher Kernel (Portable Engine) Demo Key Pair Creation Tool
+#
+# Copyright (c) 2009-2026 by Joe Mistachkin.  All rights reserved.
+#
+# See the file "license.terms" for information on usage and redistribution of
+# this file, and for a DISCLAIMER OF ALL WARRANTIES.
+#
+# RCS: @(#) $Id: $
+#
+###############################################################################
+
+set keySize 268435456; # 250MB, in bytes.
+
+#
+# NOTE: These two paths must be edited BEFORE running this script.  trnFile
+#       must point to an existing TRN (raw key material) file; OtpKeyDir
+#       must point to an existing writable directory where chunk databases
+#       will be created.  Both are validated below; the script aborts with
+#       a clear error if the placeholders have not been replaced.
+#
+
+set trnFile {C:\full\path\to\trn\18Mar2010_512MB_190349_keygen100.dat}
+
+set env(OtpKeyDir)  {C:\full\path\to\your\keyset\dir}
+
+if {[string match {C:\\full\\path\\to\\*} $trnFile]} then {
+  error "trnFile is still set to the placeholder; edit makeDemo.eagle\
+      and point it at a real TRN file before running."
+}
+
+if {![file exists $trnFile]} then {
+  error "trnFile \"$trnFile\" does not exist."
+}
+
+if {[string match {C:\\full\\path\\to\\*} $env(OtpKeyDir)]} then {
+  error "env(OtpKeyDir) is still set to the placeholder; edit makeDemo.eagle\
+      and point it at the keyset directory before running."
+}
+
+if {![file isdirectory $env(OtpKeyDir)]} then {
+  error "env(OtpKeyDir) \"$env(OtpKeyDir)\" is not an existing directory."
+}
+
+###############################################################################
+
+set keyName(1) Alice
+set keyName(2) Bob
+
+set keySetName "Demo KeySet"
+set keyGroupName "Demo KeyGroup"
+
+###############################################################################
+# WARNING: YOU SHOULD NOT NEED TO CHANGE ANYTHING BELOW THIS LINE.
+###############################################################################
+
+set path [file dirname [info script]]
+
+set keySetId [string tolower [guid new]]
+set keyGroupId [string tolower [guid new]]
+
+set keyId(1) [string tolower [guid new]]
+set keyId(2) [string tolower [guid new]]
+
+###############################################################################
+
+set keyMediaId $keyId(1)
+
+writeFile [file join $path demoMasterKey1.sql] [subst \
+    [readFile [file join $path demoMasterData.sql]]]
+
+set keyMediaId $keyId(2)
+
+writeFile [file join $path demoMasterKey2.sql] [subst \
+    [readFile [file join $path demoMasterData.sql]]]
+
+###############################################################################
+
+#
+# NOTE: Mount the keyset and import the TRN into the blobs.
+#
+
+if {0} then {
+  package require AlphaCipher.Cryptography4
+
+  otp importchunk -size $keySize -- $keyId(1) 1 $trnFile
+  otp importchunk -size $keySize -- $keyId(2) 2 $trnFile
+}
+
+###############################################################################

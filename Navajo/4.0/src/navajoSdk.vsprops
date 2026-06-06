@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--
+ *
+ * navajoSdk.vsprops -
+ *
+ * Copyright (c) 2010-2026 by Joe Mistachkin.  All rights reserved.
+ *
+ * See the file "license.terms" for information on usage and redistribution of
+ * this file, and for a DISCLAIMER OF ALL WARRANTIES.
+ *
+ * RCS: @(#) $Id: $
+ *
+-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="NavajoSdk"
+	>
+	<UserMacro
+		Name="ACK_SDK_DEFINES"
+		Value="HAVE_ERRNO_T;HAVE_INT32;HAVE_INT64"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_WARNING_DEFINES"
+		Value="_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_FEATURE_DEFINES"
+		Value="FEATURE_IMPORT;FEATURE_RESET_CACHED_KEYS"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_PUBLIC_STATIC_DEFINES"
+		Value="ACK_STATIC_LIB"
+		PerformEnvironmentSet="true"
+	/>
+	<!--
+	     NOTE: The compat sub-directory below is included so that a
+	     minimal stdint.h compatible with Visual Studio 2008 is found
+	     when the SQLite amalgamation #include's it.  Visual Studio
+	     2010 and later ship a real stdint.h via the platform SDK; the
+	     stub is wrapped in a _MSC_VER < 1600 guard so it is empty for
+	     those compilers.  When this project is migrated to a newer
+	     Visual Studio, simply remove the trailing path component.
+	-->
+	<UserMacro
+		Name="ACK_PUBLIC_INCLUDE_DIRS"
+		Value="..\include;..\..\..\Common\Shared\include;..\..\..\Common\Externals\sqlite3;..\..\..\Common\Shared\include\compat"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_SDK_INCLUDE_DIRS"
+		Value="..\include"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_PUBLIC_LIBRARY_DIRS"
+		Value="..\src\$(PlatformName)\$(ConfigurationName)"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_SDK_LIBRARY_DIRS"
+		Value="..\lib"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_PUBLIC_LIBS"
+		Value="$(ACK_OUTPUT_NAME).lib"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_SDK_LIBS"
+		Value="$(ACK_SDK_OUTPUT_NAME).lib"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_OUTPUT_NAME"
+		Value="ACKernel4"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_SDK_OUTPUT_NAME"
+		Value="ACKernel4Sdk"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_DISABLE_WARNINGS"
+		Value="4100;4127"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_DISABLE_X64_WARNINGS"
+		Value="4100;4127"
+		PerformEnvironmentSet="true"
+	/>
+</VisualStudioPropertySheet>

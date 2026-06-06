@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--
+ *
+ * phone.vsprops -
+ *
+ * Copyright (c) 2010-2026 by Joe Mistachkin.  All rights reserved.
+ *
+ * See the file "license.terms" for information on usage and redistribution of
+ * this file, and for a DISCLAIMER OF ALL WARRANTIES.
+ *
+ * RCS: @(#) $Id: $
+ *
+-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="NavajoPhone"
+	InheritedPropertySheets="..\src\navajo.vsprops"
+	>
+	<UserMacro
+		Name="PHONE_FEATURE_DEFINES_2003"
+		Value="FEATURE_WIFI"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="PHONE_FEATURE_DEFINES"
+		Value="FEATURE_SMS;FEATURE_WIFI;FEATURE_RIL;FEATURE_RAS;FEATURE_PHONE_NUMBER;FEATURE_TOOLHELP"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="PHONE_INCLUDE_DIRS"
+		Value="..\tinCan"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="PHONE_LIBRARY_DIRS"
+		Value="..\tinCan\$(PlatformName)\$(ConfigurationName)"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="PHONE_LIBS"
+		Value="aygshell.lib iphlpapi.lib sms.lib tinCan.lib ws2.lib toolhelp.lib"
+		PerformEnvironmentSet="true"
+	/>
+</VisualStudioPropertySheet>

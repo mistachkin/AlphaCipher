@@ -1,0 +1,70 @@
+/*
+ * tinCan.rc --
+ *
+ * Copyright (c) 2008-2026 by Joe Mistachkin.  All rights reserved.
+ *
+ * See the file "license.terms" for information on usage and redistribution of
+ * this file, and for a DISCLAIMER OF ALL WARRANTIES.
+ *
+ * written by: Joe Mistachkin
+ *
+ * RCS: @(#) $Id: $
+ */
+
+#if !defined(_WIN32_WCE)
+#include "winresrc.h"
+#else
+#include "windows.h"
+#endif /* !defined(_WIN32_WCE) */
+
+#if !defined(VS_FF_NONE)
+#  define VS_FF_NONE            0x00000000L
+#endif /* !defined(VS_FF_NONE) */
+
+#include "buildnum.h"
+
+/*
+ * English (U.S.) resources
+ */
+
+#if defined(_WIN32)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif /* defined(_WIN32) */
+
+/*
+ * Version
+ */
+
+VS_VERSION_INFO VERSIONINFO
+  FILEVERSION FILE_VERSION_FIXED
+  PRODUCTVERSION PRODUCT_VERSION_FIXED
+  FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+#if defined(_DEBUG)
+  FILEFLAGS VS_FF_DEBUG
+#else
+  FILEFLAGS VS_FF_NONE
+#endif /* defined(_DEBUG) */
+  FILEOS VOS__WINDOWS32
+  FILETYPE VFT_DLL
+  FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904b0"
+    BEGIN
+      VALUE "CompanyName", PRODUCT_COMPANY
+      VALUE "FileDescription", FILE_DESCRIPTION
+      VALUE "FileVersion", FILE_VERSION
+      VALUE "InternalName", FILE_NAME
+      VALUE "LegalCopyright", PRODUCT_COPYRIGHT
+      VALUE "OriginalFilename", FILE_NAME
+      VALUE "ProductName", PRODUCT_NAME
+      VALUE "ProductVersion", PRODUCT_VERSION
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 0x4b0
+  END
+END

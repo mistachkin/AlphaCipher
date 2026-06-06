@@ -1,0 +1,65 @@
+# Build outputs
+obj/
+*.o
+*.a
+*.lo
+*.la
+*.so
+*.so.*
+*.dylib
+sdkTest
+
+# Windows build outputs and intermediates
+*.dll
+*.exp
+*.exe
+*.lib
+*.pdb
+*.idb
+*.ilk
+*.tlog
+*.iobj
+*.ipdb
+*.opensdf
+*.sdf
+*.suo
+*.user
+*.ncb
+*.aps
+*.opendb
+.vs/
+
+# Visual Studio output directories at any depth
+[Dd]ebug/
+[Rr]elease/
+[Dd]ebug[Dd]ll/
+[Rr]elease[Dd]ll/
+ipch/
+
+# Linker / archive temporaries
+core
+errs
+TAGS
+a.exe
+a.out
+errors
+lib.exp
+
+# Editor / OS metadata
+*~
+*.swp
+*.swo
+\#*
+.\#*
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Fossil working files (in case the tree is imported with one in place).
+# .fslckout is the POSIX checkout-state name; _FOSSIL_ is the same file
+# under Windows where filenames beginning with a dot are awkward.
+.fslckout
+_FOSSIL_
+
+# Local test scratch
+/tmp/

@@ -1,0 +1,3 @@
+Common\Shared\include\hresult.h
+Navajo\4.0\include\navajo.h
+Navajo\4.0\include\navajoPort.h

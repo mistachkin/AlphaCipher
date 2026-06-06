@@ -1,0 +1,18 @@
+# AlphaCipher .gitattributes
+#
+# Policy: treat every file in the repository as binary.  Git stores the
+# bytes verbatim, performs no line-ending normalization on commit or on
+# checkout, and produces no textual diffs.  This is the only setting
+# that guarantees byte-for-byte fidelity across the mixed-line-ending
+# tree we ship (CRLF Visual Studio sources alongside LF Makefile / shell
+# / Eagle / Markdown).
+#
+# The `-text` attribute on `*` overrides core.autocrlf and any
+# inherited text-vs-binary heuristic, so this works the same on
+# Windows, macOS, and Linux working copies.
+#
+# Trade-off: `git diff` will print "Binary files differ" rather than a
+# textual diff.  Use `git diff --text -- <path>` to force a textual
+# view of a specific file on demand.
+
+* -text

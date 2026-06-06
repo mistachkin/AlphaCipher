@@ -1,0 +1,97 @@
+README:  AlphaCipher SDK
+
+    This is the AlphaCipher SDK for Windows beta distribution.
+
+RCS: @(#) $Id: $
+
+Contents
+--------
+
+    1. Introduction
+    2. Documentation
+    3. Installing the SDK
+    4. Testing the SDK
+
+1. Introduction
+---------------
+
+The AlphaCipher SDK for Windows provides access to the "Navajo" one-time pad
+(OTP) encryption engine kernel.  It complies with the ANSI C (ISO/IEC 9899) and
+POSIX (IEEE 1003.1-2001) standards and includes a complete suite of specialized
+unit tests to help ensure high build quality and performance.  The official SDK
+binaries have been compiled and tested with the Visual C++ 2008 compiler and
+runtime on the 32-bit Windows XP and Windows 7 operating systems.
+
+2. Documentation
+----------------
+
+The public header files include overviews for each public function exposed by
+the SDK.  Additional documentation is a work in progress.
+
+3. Installing the SDK
+---------------------
+
+Prior to compiling and running SDK test application or unit tests, the binary
+SDK components must be placed in a directory specified in the PATH environment
+variable.  In addition, the SUBST command must be used to point the "X:\" drive
+to the location of the SDK test keys by entering a command similar to the
+following into a Command Prompt window:
+
+    SUBST X: C:\full\path\to\keys
+
+In the command above, the "C:\full\path\to\keys" argument must be the fully
+qualified path of the extracted "keys" sub-directory.  In real applications,
+this would not be necessary; however, the SDK test application assumes the SDK
+test keys are located in the "X:\" directory.
+
+4. Testing the SDK
+------------------
+
+The included SDK test application serves two purposes.  First, it can be used
+to verify that the SDK components are operating properly.  Second, it serves as
+a template for using the SDK components in other applications.
+
+The SDK unit test suite uses the open-source Tcl-compatible scripting language
+Eagle.  The included AlphaCipher Plugin for Eagle provides access to the SDK
+components from Eagle scripts.  The plugin itself is not open-source; however,
+the source code for the plugin has been provided under the same license terms
+that govern the SDK components themselves.
+
+The following steps are required to install and run the SDK unit test suite:
+
+    1. Install the Eagle runtime by simply running the included self-extracting
+       archive (SFX) file and selecting a suitable destination directory on the
+       local machine.
+
+    2. Install the AlphaCipher Plugin for Eagle by simply running the included
+       self-extracting archive (SFX) and selecting the "lib" sub-directory of
+       the Eagle installation directory chosen in the previous step.
+
+    3. Open a Command Prompt window, change the current directory to the "bin"
+       sub-directory of the Eagle installation directory chosen in step 1, and
+       enter the following commands:
+
+           SET PATH=%PATH%;C:\full\path\to\Win32_ReleaseDll\bin
+           SET OtpKeyDir=X:\
+           EagleShell -file ..\lib\AlphaCipher1.0\Tests\all.eagle
+
+       In the first command above, the "C:\full\path\to\Win32_ReleaseDll\bin"
+       portion of the first argument must be the fully qualified path of the
+       extracted "bin" sub-directory containing both the "sqlite3.dll" and
+       "ACKernel4Sdk.dll" files.
+
+       In the second command above, the "X:\" portion of the first argument
+       must be the fully qualified path of the extracted "keys" sub-directory.
+       Alternatively, if the directions in the "Installing the SDK" section
+       (above) have been followed (i.e. the SUBST command was executed), then
+       the string "X:\" may be used verbatim (without the surrounding quotes).
+
+       The SDK unit test suite will output and log full diagnostic information
+       related to the configuration of the local machine, Eagle, the plugin,
+       the SDK components, and the status of the tests themselves.  All the
+       unit tests should either pass or be skipped (i.e. if the necessary test
+       constraints are not met).  By default, the log file will be written to
+       the directory specified by the TEMP or TMP environment variables.  This
+       location, along with a wide variety of other Eagle test suite options,
+       can be easily overriden via the command line; however, using the
+       defaults is highly recommended.

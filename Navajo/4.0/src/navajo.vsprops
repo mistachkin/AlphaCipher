@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--
+ *
+ * navajo.vsprops -
+ *
+ * Copyright (c) 2010-2026 by Joe Mistachkin.  All rights reserved.
+ *
+ * See the file "license.terms" for information on usage and redistribution of
+ * this file, and for a DISCLAIMER OF ALL WARRANTIES.
+ *
+ * RCS: @(#) $Id: $
+ *
+-->
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Navajo"
+	InheritedPropertySheets=".\navajoSdk.vsprops"
+	>
+	<UserMacro
+		Name="MANIFEST_VERSION"
+		Value="4.0.0.0"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_WINNT_OS_DEFINES"
+		Value="ACK_OS_ANSI;ACK_OS_MSVC;ACK_OS_WIN32;ACK_OS_SQLITE3"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_WINCE_OS_DEFINES"
+		Value="ACK_OS_ANSI;ACK_OS_WIN32;ACK_OS_WINCE;ACK_OS_SQLITE3"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_STATIC_DEFINES"
+		Value="SQLITE_STATIC_LIB;ACK_BUILD;ACK_STATIC_LIB"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_DYNAMIC_DEFINES"
+		Value="ACK_BUILD"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_INCLUDE_DIRS"
+		Value="..\include;..\include\os;..\..\..\Common\Shared\include;..\..\..\Common\Externals\sqlite3"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_LIBRARY_DIRS"
+		Value="..\..\..\Common\Externals\sqlite3\$(PlatformName)\$(ConfigurationName)"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_LIBS"
+		Value="sqlite3.lib"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_DISABLE_WARNINGS"
+		Value="4005;4057;4100;4127;4133;4206"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_DISABLE_X64_WARNINGS"
+		Value="4244;4306"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_VERSION_STAMP_COMMAND"
+		Value="&quot;$(ProjectDir)..\..\..\Tools\versionStamp.bat&quot; 4.0 &quot;$(ProjectDir)buildnum.h&quot; &quot;$(ConfigurationName)&quot;"
+		PerformEnvironmentSet="true"
+	/>
+	<UserMacro
+		Name="ACK_PUBLIC_VERSION_STAMP_COMMAND"
+		Value="&quot;$(ProjectDir)..\..\..\Tools\versionStamp.bat&quot; 2.0 &quot;$(ProjectDir)buildnum.h&quot; &quot;$(ConfigurationName)&quot;"
+		PerformEnvironmentSet="true"
+	/>
+</VisualStudioPropertySheet>

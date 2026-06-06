@@ -1,0 +1,69 @@
+name: build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    name: Linux (Ubuntu) build + smoke
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends \
+            build-essential gcc make pkg-config
+
+      - name: Print toolchain versions
+        run: |
+          gcc --version | head -1
+          make --version | head -1
+          ld --version | head -1
+
+      - name: Build (make clean && make)
+        working-directory: Navajo/4.0/src
+        run: |
+          make clean
+          make 2>&1 | tee build.log
+          if grep -E "warning:|error:" build.log; then
+            echo "Build produced warnings or errors."
+            exit 1
+          fi
+
+      - name: List build outputs
+        working-directory: Navajo/4.0/src
+        run: ls -la obj/
+
+      - name: Run end-to-end test (make test)
+        working-directory: Navajo/4.0/src
+        run: |
+          if [ ! -x obj/sdkTest ]; then
+            echo "obj/sdkTest was not produced."
+            exit 1
+          fi
+          # `make test` stages a fresh copy of the keyset fixture under
+          # obj/test_keys, points sdkTest at it via ACK_TEST_DATABASE,
+          # and runs the 1000-iteration encrypt / decrypt round-trip.
+          # The test harness reads from stdin between phases (TEST_PAUSE);
+          # piping /dev/null lets it run unattended in CI.
+          make test < /dev/null
+
+      - name: Upload build log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-build-log
+          path: Navajo/4.0/src/build.log
+          if-no-files-found: ignore
+          retention-days: 7

@@ -1,0 +1,47 @@
+# CODEOWNERS for AlphaCipher
+#
+# This file controls which reviewers GitHub auto-requests on a pull
+# request based on the paths that the PR touches.  See
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+# for the file-format reference.
+#
+# The first matching pattern wins for a given file, so more specific
+# rules go later in this file.
+
+# Default owner for every path that is not otherwise claimed below.
+*                                       @mistachkin
+
+# Cryptographic core -- additional scrutiny.
+/Navajo/4.0/src/navajo.c                @mistachkin
+/Navajo/4.0/src/navajoInt.c             @mistachkin
+/Navajo/4.0/src/navajoCache.c           @mistachkin
+/Navajo/4.0/src/navajoSql.c             @mistachkin
+/Navajo/4.0/src/navajoGen.c             @mistachkin
+/Navajo/4.0/src/protocol.c              @mistachkin
+/Navajo/4.0/src/CipherTextHeader.c      @mistachkin
+/Navajo/4.0/include/navajo*.h           @mistachkin
+/Navajo/4.0/include/CipherTextHeader.h  @mistachkin
+
+# Storage / on-disk schema.
+/Navajo/4.0/db/                         @mistachkin
+
+# Build system and packaging.
+/Navajo/4.0/src/Makefile                @mistachkin
+/Navajo/4.0/src/*.vcproj                @mistachkin
+/Navajo/4.0/src/*.vsprops               @mistachkin
+/Navajo/4.0/src/*.sln                   @mistachkin
+/Common/Externals/sqlite3/*.vcproj      @mistachkin
+/Common/Externals/sqlite3/*.vsprops     @mistachkin
+/Tools/                                 @mistachkin
+
+# Compatibility shims for legacy toolchains and embedded targets.
+/Common/Shared/include/compat/          @mistachkin
+
+# Repository-level docs and project meta.
+/README.md                              @mistachkin
+/CHANGELOG.md                           @mistachkin
+/CONTRIBUTING.md                        @mistachkin
+/CODE_OF_CONDUCT.md                     @mistachkin
+/SECURITY.md                            @mistachkin
+/CODEOWNERS                             @mistachkin
+/.github/                               @mistachkin

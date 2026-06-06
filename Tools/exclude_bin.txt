@@ -1,0 +1,17 @@
+*\*.bsc
+*\*.dep
+*\*.done
+*\*.exp
+*\*.htm
+*\*.idb
+*\*.ilk
+*\*.log
+*\*.manifest
+*\*.map
+*\*.obj
+*\*.pidb
+*\*.plg
+*\*.res
+*\*.sbr
+*\*.xml
+*\vc*.pdb

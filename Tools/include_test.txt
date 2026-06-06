@@ -1,0 +1,5 @@
+Navajo\4.0\src\navajoSdk.vsprops
+Navajo\4.0\test\NavajoSdkTestExt.sln
+Navajo\4.0\test\NavajoSdkTestExt.vcproj
+Navajo\4.0\test\sdkTest.c
+Navajo\4.0\test\sdkTest.h
