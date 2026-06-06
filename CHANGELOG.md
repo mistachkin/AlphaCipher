@@ -35,8 +35,6 @@ release.
   `ACK_RESET_OFFSET_SQL` extended to also restore `ChunkId`.
 - **`Navajo/4.0/doc/public_api.md`** — formal reference for the public
   C API surface.
-- **`Navajo/4.0/doc/latent_bug_audit.md`** — record of the audit pass
-  + fix plan.
 - **VS2008 / WCE compatibility shims** under
   `Common/Shared/include/compat/`:
   - `stdint.h` — C99 fixed-width integer types and limits.

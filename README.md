@@ -231,7 +231,6 @@ ACK_TEST_DATABASE=/path/to/your/layout.pef obj/sdkTest
 | Document                                                      | Audience                                                 |
 |---------------------------------------------------------------|----------------------------------------------------------|
 | [`Navajo/4.0/doc/public_api.md`](Navajo/4.0/doc/public_api.md) | Engine integrators consuming `ACK_*` from C / C++         |
-| [`Navajo/4.0/doc/latent_bug_audit.md`](Navajo/4.0/doc/latent_bug_audit.md) | Maintainers; record of the May–June 2026 audit + fixes    |
 | [`CHANGELOG.md`](CHANGELOG.md)                                 | All consumers; version history                            |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md)                           | Anyone proposing source changes                           |
 | [`SECURITY.md`](SECURITY.md)                                   | Anyone reporting a vulnerability                          |
