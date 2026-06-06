@@ -17,6 +17,62 @@ same material is never reused.  The repository ships:
 The plugin layers that consume this SDK (the AlphaCipher Eagle plugin
 and the KeyPair generator UI) live in separate repositories.
 
+## Why a one-time pad?
+
+The one-time pad is the only widely understood cipher whose security
+does not depend on a computational hardness assumption — and therefore
+the only one **provably immune to advances in quantum computing**.
+
+Modern ciphers — RSA, AES, ECDSA, Diffie-Hellman, and the
+post-quantum lattice-based candidates — are all *computationally*
+secure.  Their security rests on the claim that some particular
+problem (integer factoring, discrete logarithms, learning-with-errors,
+and so on) is infeasible to solve given the resources an attacker is
+expected to have.  Quantum computing changes those resources:
+
+- **Shor's algorithm** factors integers and solves discrete
+  logarithms in polynomial time on a sufficiently large quantum
+  computer, collapsing every currently-deployed RSA, DSA, and
+  elliptic-curve scheme.
+- **Grover's algorithm** gives a quadratic speed-up on unstructured
+  search, effectively halving the bit-strength of symmetric ciphers
+  (AES-256 retains roughly 128-bit security; AES-128 drops to roughly
+  64).
+- The **post-quantum candidates** resist those two specific
+  algorithms, but they still rest on hardness assumptions that future
+  cryptanalysis — quantum or classical — could weaken.
+
+The one-time pad rests on a *theorem*, not an assumption.  Shannon
+proved in 1949 that XOR'ing a plaintext against a truly-random pad
+of equal length, used exactly once, produces a ciphertext that is
+**statistically independent** of the plaintext.  Every possible
+plaintext of length *N* is equally consistent with a given ciphertext
+of length *N*.  There is no plaintext-bearing structure for an
+adversary to recover — quantum, classical, or otherwise.  A quantum
+computer of any size, running any algorithm, extracts the same amount
+of information from a one-time-pad ciphertext as a classical
+brute-force search does: **none**.  This is not "quantum-resistant for
+the foreseeable future" or "secure assuming X remains hard"; it is a
+proof.
+
+The strength is conditional on four operational requirements:
+
+1. The pad bytes must be **truly random** (not pseudorandom).
+2. The pad must be **at least as long** as the message.
+3. The pad must be **used exactly once**.
+4. The pad must be **kept secret** and **distributed in advance** to
+   both communicating parties.
+
+Meeting all four is what makes one-time pads operationally hard
+rather than impossible.  This SDK addresses requirements 2, 3, and a
+significant part of 4: it manages pad material on disk, tracks the
+consumed offset across encryptions so the same region of pad cannot
+be reused even across crashes or process restarts, and intentionally
+offers no PRNG-based fallback that might trade information-theoretic
+security for convenience.  The first requirement — producing
+genuinely random bytes — is the responsibility of the generator
+stage, which lives in a separate plugin.
+
 ## Status
 
 Version **4.0** is a release candidate.  The May–June 2026 work added

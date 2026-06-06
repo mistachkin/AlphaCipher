@@ -49,7 +49,8 @@ WCE picks up `compat/wce_stdlib.h` through both the SDK source (via
 
 ## Proposing a change
 
-1. **Fork and branch** from `main`.
+1. **Fork and branch** from `trunk` (the integration branch — this
+   project follows the Fossil naming convention).
 2. **Match the existing house style** (see below).  Style-only
    churn is not accepted in functional PRs; submit it as a separate
    PR.

@@ -2,9 +2,10 @@ name: build
 
 on:
   push:
-    branches: [ main ]
+    # The integration branch is named "trunk" per the Fossil convention.
+    branches: [ trunk ]
   pull_request:
-    branches: [ main ]
+    branches: [ trunk ]
   workflow_dispatch:
 
 permissions:
