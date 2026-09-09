@@ -6,6 +6,33 @@ expectations are in [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md); the
 security disclosure path is in [`SECURITY.md`](SECURITY.md) and is
 **not** GitHub Issues / PRs.
 
+## Account requirements
+
+Two account-level prerequisites apply before any pull request can be
+reviewed or merged.  Both protect the supply chain: they make it
+materially harder for a compromised contributor account to land
+malicious commits unnoticed.
+
+1. **Signed commits.**  Every commit in a PR must be cryptographically
+   signed and verifiable.  The signing key — SSH or GPG — must be
+   uploaded to your GitHub account as a *signing* key so the
+   *Verified* badge appears on every commit in the GitHub UI.  PRs
+   containing unsigned or `Unverified` commits will be asked to
+   amend-and-resign before review.  See GitHub's
+   [signing-commits documentation](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits)
+   for end-to-end setup.
+
+2. **Two-factor authentication on your GitHub account.**  Enable 2FA
+   under *Settings → Password and authentication → Two-factor
+   authentication*.  Any second factor GitHub supports is acceptable
+   — a TOTP authenticator app, a passkey, or a hardware security key
+   are all fine; SMS is supported but the others are strongly
+   preferred.
+
+Branch protection on `trunk` will reject pushes that do not satisfy
+both conditions, so verifying them locally before opening a PR saves
+a round-trip.
+
 ## Setting up to build
 
 ### Linux / WSL / OpenBSD
